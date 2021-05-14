@@ -15,6 +15,6 @@ public class LearnerRowMapper implements RowMapper<Learner> {
     @Override
     public Learner mapRow(ResultSet resultSet, int id) throws SQLException {
         return new Learner(resultSet.getInt("id"), resultSet.getString("firstname"),
-                resultSet.getString("lastName"));
+                resultSet.getString("lastName"),resultSet.getString("promotion"));
          }
 }

@@ -1,7 +1,6 @@
 package co.simplon.springticketapi.dao;
 
 import co.simplon.springticketapi.model.Learner;
-import co.simplon.springticketapi.model.Ticket;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class LearnerDao {
+public class LearnerDao implements Dao<Learner> {
 
     private final JdbcTemplate jdbcTemplate;
     private final RowMapper<Learner> learnerRowMapper;
@@ -29,9 +28,19 @@ public class LearnerDao {
         return jdbcTemplate.query("SELECT * FROM learner", learnerRowMapper);
     }
 
-//    // Création des apprenants en base de données
-//    @Override
-//    public void save(Learner learner) {
-//        jdbcTemplate.execute("INSERT INTO learner (id, firstName, lastName) VALUES ('" + learner.getIdLearner() + "','" + learner.getFisrtName() + "','" + learner.getLastName()+"')");
-//    }
+    // Création des apprenants en base de données
+    @Override
+    public void save(Learner learner) {
+        jdbcTemplate.execute("INSERT INTO learner (id, first_name, last_name,promotion) VALUES ('" + learner.getIdLearner() +
+                "','" + learner.getFirstName() +
+                "','" + learner.getLastName() +
+                "','" + learner.getPromotion() +"')");
+    }
+
+    // Suppression des apprenants en base de données
+    @Override
+    public void delete(int id) {
+        jdbcTemplate.update("DELETE FROM learner WHERE id = ?",learnerRowMapper, id);
+        }
 }
+

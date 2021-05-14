@@ -29,8 +29,11 @@ public class TicketDao implements Dao<Ticket> {
     // Création des tickets en base de données
     @Override
     public void save(Ticket ticket) {
-        jdbcTemplate.execute("INSERT INTO ticket (date, description) VALUES ('" + ticket.getDate() + "','" + ticket.getDescription() + "')");
-            }
+        jdbcTemplate.execute("INSERT INTO ticket (id, date, description, resolved, id_learner) " +
+                "VALUES ('" + ticket.getId() + "','" + ticket.getDate() + "','" + ticket.getDescription() + "','" + ticket.isResolved() + "','"
+                + ticket.getIdLearner() + "')");
+        System.out.println(ticket);
+    }
 
     // Sélection de tous les tickets en cours non résolu
     @Override
@@ -41,6 +44,6 @@ public class TicketDao implements Dao<Ticket> {
     // Suppression des tickets résolus
     @Override
     public void delete(int id) {
-       jdbcTemplate.execute("DELETE FROM ticket WHERE resolved = true");
-          }
+        jdbcTemplate.execute("DELETE FROM ticket WHERE resolved = true");
+    }
 }

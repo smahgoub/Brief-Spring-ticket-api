@@ -14,6 +14,8 @@ public class TicketRowMapper implements RowMapper<Ticket> {
     // Transformation de la ligne SQL en objet Java
     @Override
     public Ticket mapRow(ResultSet resultSet, int id) throws SQLException {
-        return new Ticket(resultSet.getInt("id"), resultSet.getTimestamp("date").toLocalDateTime(),resultSet.getString("description"));
+        return new Ticket(resultSet.getInt("id"), resultSet.getTimestamp("date").toLocalDateTime(),
+                resultSet.getString("description"),resultSet.getBoolean("resolved"),
+                resultSet.getInt("idLearner"));
         }
 }
