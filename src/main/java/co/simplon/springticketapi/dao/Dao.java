@@ -10,7 +10,7 @@ public interface Dao<T> {
      * @param id l'identifiant de l'objet à trouver.
      * @return l'objet si trouvé, null sinon.
      */
-    T get(Long id);
+    T get(int id);
 
     /**
      * Fonction de récupération de la liste de tous les objets en base de données.
@@ -31,5 +31,5 @@ public interface Dao<T> {
      *
      * @param id l'identifiant de l'objet à supprimer.
      */
-    void delete(Long id);
+    void delete(int id);
 }

@@ -1,32 +1,37 @@
 package co.simplon.springticketapi.dao;
 
 import co.simplon.springticketapi.model.Learner;
+import co.simplon.springticketapi.model.Ticket;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class LearnerDao implements Dao<Learner> {
+public class LearnerDao {
 
-    @Override
-    public Learner get(Long id) {
-        // A vous de jouer
-        return null;
+    private final JdbcTemplate jdbcTemplate;
+    private final RowMapper<Learner> learnerRowMapper;
+
+    public LearnerDao(JdbcTemplate jdbcTemplate, RowMapper<Learner> learnerRowMapper) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.learnerRowMapper = learnerRowMapper;
     }
 
-    @Override
+    // Sélection des apprenants par leur ID
+    public Learner get(int id) {
+        return jdbcTemplate.queryForObject("select * from ticket where id = ?", learnerRowMapper, id);
+    }
+
+    // Sélection de tous les apprenants
     public List<Learner> getAll() {
-        // A vous de jouer
-        return null;
+        return jdbcTemplate.query("SELECT * FROM learner", learnerRowMapper);
     }
 
-    @Override
-    public void save(Learner learner) {
-        // A vous de jouer
-    }
-
-    @Override
-    public void delete(Long id) {
-        // A vous de jouer
-    }
+//    // Création des apprenants en base de données
+//    @Override
+//    public void save(Learner learner) {
+//        jdbcTemplate.execute("INSERT INTO learner (id, firstName, lastName) VALUES ('" + learner.getIdLearner() + "','" + learner.getFisrtName() + "','" + learner.getLastName()+"')");
+//    }
 }
